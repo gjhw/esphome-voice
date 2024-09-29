@@ -11,8 +11,19 @@ api:
   encryption:
     key: ugRt/qQlJKYOuuTTNZ6xOvp3KgHPFMWSXUFXzXuotp4=
 
-
-
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+
+voice_assistant:
+  speaker: !remove
+  noise_suppression_level: 4.0
+  volume_multiplier: 4.0
+  on_tts_end:
+     - homeassistant.service:
+         service: media_player.play_media
+         data:
+           entity_id: media_player.study
+           media_content_id: !lambda 'return x;'
+           media_content_type: music
+           announce: "true"
